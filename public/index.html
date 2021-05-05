@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>control</title>
+		<meta charset="utf-8">    
+		<script src="/socket.io/socket.io.js"></script>
+
+	</head>
+
+<body>
+
+<button style="display: none;" id="send">Send</button>
+
+	<script>
+		var socket = io(); 	
+
+
+var sendButton = document.getElementById("send"); 
+var messageInput = document.getElementById("messageinput");
+sendButton.addEventListener("click", sendMessage); 
+    
+window.addEventListener('message', function(event) {
+	if ((`${event.data}`) == (dataforum)) {
+		sendMessage(`${event.data}`);}
+
+    });
+window.addEventListener("keypress", function(event){
+	// Normalize key code across browsers:
+	var keyCode = event.which || event.keyCode || 0;
+	// Keycode #13 is the enter key
+	if (keyCode === 13) {
+		sendMessage();
+
+	}
+});
+
+socket.on('chat', function(data){displayNewMessage(data.message);}); 
+function sendMessage(event) {socket.emit('chat', {message: messageInput.value} );} 
+function displayNewMessage (message) {
+	
+	window.top.postMessage((message), '*')
+}
+
+/*window.addEventListener('message', function(msg) {
+      alert(msg.data); */
+
+window.addEventListener('message', function (event) {
+popup_open_e1(event.data);
+    function popup_open_e1(event) {socket.emit('chat', {message: event} );} 
+
+
+
+
+
+    });
+
+
+</script>
+
+
+
+
+</body>
+</html>

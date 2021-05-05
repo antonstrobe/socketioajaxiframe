@@ -1,0 +1,13 @@
+<iframe style="display: none;" id="iFrame" src="https://socketioajaxiframe.herokuapp.com"></iframe>
+<button onclick="messages()">отправить сообщение по сокетам в айфрейм, и получить обратно</button>
+
+<script>
+	function messages() {
+		iFrame.contentWindow.postMessage("messages", "*"); 
+	}
+	
+	window.onmessage = function(event) {
+		if (event.data == 'messages') {
+		alert("messages out iframe");
+	}};
+</script>
